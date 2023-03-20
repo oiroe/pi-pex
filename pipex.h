@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:07:04 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/02/04 14:52:59 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/02/26 15:48:08 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,18 @@
 # define PIPEX_H
 
 # include <unistd.h>
-# include <stdio.h>
+# include <stdlib.h>
 # include <fcntl.h>
-# include "libft.h"
+# include <stdio.h>
+# include <sys/wait.h>
+
+void	exe(char *av, char **env);
+char	*find_path(char *cmd, char **env);
+void	my_free(char **str);
+char	*ft_strnstr(const char *str, const char *tofind, size_t len);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	**ft_split(char const *s, char c);
+size_t	ft_strlen(const char *s);
 
 #endif

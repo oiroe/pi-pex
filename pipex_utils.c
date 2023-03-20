@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:50:46 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/02/12 00:56:52 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/03/21 00:49:39 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,12 @@ void	exe(char *av, char **env)
 	if (!path)
 	{
 		my_free(cmd);
-		error();
+		perror("meaw");
+		exit(EXIT_FAILURE);
 	}
 	if (execve(path, cmd, env) != 0)
-		error();
-}
-
-/*int	test(void)
-{
-	return (1);
-	int	i;
-	i = 0;
-	while (i < 10)
 	{
-		printf("%d ", i);
-		i++;
+		perror("meaw");
+		exit(EXIT_FAILURE);
 	}
-	printf("\n");
-	return (0);
-}*/
-
-int	main (int ac, char **av, char **env)
-{
-	//exe("which ls", env);
-	exe(av[1], env);
-	//int i = 0;
-	//while(env[i])
-		//printf("%s\n", env[i++]);
-
-	return (0);
 }

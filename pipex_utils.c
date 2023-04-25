@@ -6,7 +6,7 @@
 /*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:50:46 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/03/21 00:49:39 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:07:24 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	exe(char *av, char **env)
 	}
 	if (execve(path, cmd, env) != 0)
 	{
+		my_free(cmd);
+		free(path);
 		perror("meaw");
 		exit(EXIT_FAILURE);
 	}

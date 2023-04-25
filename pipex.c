@@ -6,7 +6,7 @@
 /*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:06:38 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/03/21 01:00:14 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:56:37 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,19 @@ void	child(int *pfd, char **env, char **argv)
 int	main(int argc, char **argv, char **env)
 {
 	pid_t	pfd[2];
-	pid_t	pid;
+	pid_t	pid1;
 
 	if (argc == 5)
 	{
 		if (pipe(pfd) == -1)
 			perror("Error");
-		pid = fork();
-		if (pid == -1)
+		pid1 = fork();
+		if (pid1 == -1)
 			perror("Error");
-		else if (pid == 0)
+		else if (pid1 == 0)
 			child(pfd, env, argv);
-		waitpid(pid, NULL, 0);
 		parent(pfd, env, argv);
+		waitpid(pid1, NULL, 0);
 	}
 	else
 		perror("invalid input");

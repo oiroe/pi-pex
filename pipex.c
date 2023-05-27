@@ -6,7 +6,7 @@
 /*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:06:38 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/04/21 13:56:37 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/05/28 02:50:31 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int	main(int argc, char **argv, char **env)
 			perror("Error");
 		else if (pid1 == 0)
 			child(pfd, env, argv);
-		parent(pfd, env, argv);
+		else
+			parent(pfd, env, argv);
 		waitpid(pid1, NULL, 0);
 	}
 	else

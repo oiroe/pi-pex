@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:06:38 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/05/28 02:50:31 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/05/28 21:17:02 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 void	parent(int *pfd, char **env, char **argv)
 {
-	int		fd;
+	int	fd;
 
 	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-		perror("meaw");
+		perror("zsh");
 		exit(EXIT_FAILURE);
 	}
 	dup2(pfd[0], STDIN_FILENO);
@@ -36,7 +36,7 @@ void	child(int *pfd, char **env, char **argv)
 	fd = open(argv[1], O_RDWR, 0777);
 	if (fd == -1)
 	{
-		perror("meaw");
+		perror("zsh");
 		exit(EXIT_FAILURE);
 	}
 	dup2(pfd[1], STDOUT_FILENO);
@@ -57,12 +57,11 @@ int	main(int argc, char **argv, char **env)
 			perror("Error");
 		pid1 = fork();
 		if (pid1 == -1)
-			perror("Error");
+			exit(-1);
 		else if (pid1 == 0)
 			child(pfd, env, argv);
-		else
-			parent(pfd, env, argv);
-		waitpid(pid1, NULL, 0);
+		//waitpid(pid1, NULL, 0);
+		parent(pfd, env, argv);
 	}
 	else
 		perror("invalid input");

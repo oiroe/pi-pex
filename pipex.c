@@ -6,11 +6,19 @@
 /*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:06:38 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/05/29 21:32:00 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:30:03 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+
+void	errorh(char **cmd, int mode)
+{
+	if (mode == 1)
+		my_free(cmd);
+	perror("pipex");
+	exit(EXIT_FAILURE);
+}
 
 void	parent(int *pfd, char **env, char **argv)
 {
@@ -19,7 +27,7 @@ void	parent(int *pfd, char **env, char **argv)
 	fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-		perror("zsh");
+		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
 	dup2(pfd[0], STDIN_FILENO);
@@ -37,7 +45,7 @@ void	child(int *pfd, char **env, char **argv)
 	fd = open(argv[1], O_RDWR, 0777);
 	if (fd == -1)
 	{
-		perror("zsh");
+		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
 	dup2(pfd[1], STDOUT_FILENO);
@@ -57,7 +65,7 @@ int	main(int argc, char **argv, char **env)
 	if (argc == 5)
 	{
 		if (pipe(pfd) == -1)
-			perror("Error");
+			perror("pipex");
 		pid1 = fork();
 		if (pid1 == 0)
 			child(pfd, env, argv);
@@ -70,6 +78,6 @@ int	main(int argc, char **argv, char **env)
 		waitpid(pid2, NULL, 0);
 	}
 	else
-		perror("invalid input");
+		perror("pipex");
 	return (0);
 }

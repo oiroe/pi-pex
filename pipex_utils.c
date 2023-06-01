@@ -6,7 +6,7 @@
 /*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/04 14:50:46 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/05/28 20:46:19 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:50:01 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,17 @@ void	my_free(char **str)
 	free(str);
 }
 
+int	check_have_path(char **env, int *i)
+{
+	while (env[*i])
+	{
+		if (ft_strnstr(env[*i], "PATH=", 5))
+			return (1);
+		(*i)++;
+	}
+	return (0);
+}
+
 char	*find_path(char *cmd, char **env)
 {
 	char	*path;
@@ -33,8 +44,8 @@ char	*find_path(char *cmd, char **env)
 	int		i;
 
 	i = 0;
-	while (ft_strnstr(env[i], "PATH=", 5) == 0)
-		i++;
+	if (!check_have_path(env, &i))
+		errorh(NULL, 0);
 	my_path = ft_split(env[i] + 5, ':');
 	i = 0;
 	while (my_path[i])
@@ -61,8 +72,9 @@ int	check_is_path(char **cmd)
 	i = 0;
 	while (cmd[i])
 	{
-		if (access(cmd[i], F_OK) == 0)
-			return (1);
+		if (ft_strnstr(cmd[i], "/", ft_strlen(cmd[i])))
+			if (access(cmd[i], F_OK | R_OK) == 0)
+				return (1);
 		i++;
 	}
 	return (0);
@@ -73,24 +85,20 @@ void	exe(char *av, char **env)
 	char	**cmd;
 	char	*path;
 
+	if (ft_strncmp(av, "\0", 1) == 0)
+		errorh(NULL, 0);
 	cmd = ft_split(av, ' ');
 	if (check_is_path(cmd) == 0)
 	{
 		path = find_path(cmd[0], env);
 		if (!path)
-		{
-			my_free(cmd);
-			perror("zsh");
-			exit(EXIT_FAILURE);
-		}
+			errorh(cmd, 1);
 	}
 	else
 		path = ft_substr(cmd[0], 0, ft_strlen(cmd[0]));
 	if (execve(path, cmd, env) != 0)
 	{
-		my_free(cmd);
 		free(path);
-		perror("zsh");
-		exit(EXIT_FAILURE);
+		errorh(cmd, 1);
 	}
 }

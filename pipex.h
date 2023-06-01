@@ -6,7 +6,7 @@
 /*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:07:04 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/05/28 16:38:34 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/06/01 18:30:19 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <stdio.h>
 
+void	errorh(char **cmd, int mode);
 void	exe(char *av, char **env);
 char	*find_path(char *cmd, char **env);
 void	my_free(char **str);
@@ -28,5 +29,6 @@ char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlen(const char *s);
+int		ft_strncmp(const char *dest, const char *src, size_t n);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pboonpro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: pboonpro <pboonpro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/03 22:07:04 by pboonpro          #+#    #+#             */
-/*   Updated: 2023/06/04 02:48:58 by pboonpro         ###   ########.fr       */
+/*   Updated: 2023/09/29 13:44:34 by pboonpro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <stdio.h>
+# include "libft/libft.h"
 
 void	exe(char *av, char **env);
 char	*find_path(char *cmd, char **env);
